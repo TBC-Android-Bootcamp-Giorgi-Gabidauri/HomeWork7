@@ -1,17 +1,18 @@
 package com.gabo.notrecyclerview
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.InputType.TYPE_CLASS_TEXT
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.gabo.notrecyclerview.databinding.ActivityMainBinding
-import com.gabo.notrecyclerview.extension.addFieldsAsNumeric
-import com.gabo.notrecyclerview.extension.addFieldsAsText
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,12 +32,14 @@ class MainActivity : AppCompatActivity() {
                 if (tietFieldName.text.toString().isNotEmpty()) {
                     when {
                         !cbFieldIsNumeric.isChecked -> {
-                            tvList.text = tvList.text.toString()
-                                .addFieldsAsText(tietFieldName.text.toString())
+                            val tv = TextView(this@MainActivity)
+                            tv.text = "\n\ntext: ${tietFieldName.text.toString()}"
+                            ll.addView(tv)
                         }
                         cbFieldIsNumeric.isChecked -> {
-                            tvList.text = tvList.text.toString()
-                                .addFieldsAsNumeric(tietFieldName.text.toString())
+                            val tv = TextView(this@MainActivity)
+                            tv.text = "\n\nNumeric: ${tietFieldName.text.toString()}"
+                            ll.addView(tv)
                         }
                     }
                 } else {
@@ -47,16 +50,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString("list", binding.tvList.text.toString())
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        binding.tvList.text = savedInstanceState.getString("list")
     }
 
     private fun clearField(tiet: TextInputEditText) {
