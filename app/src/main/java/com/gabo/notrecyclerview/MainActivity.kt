@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                         !cbFieldIsNumeric.isChecked -> {
                             tvList.text = tvList.text.toString()
                                 .addFieldsAsText(tietFieldName.text.toString())
+
                         }
                         cbFieldIsNumeric.isChecked -> {
                             tvList.text = tvList.text.toString()
@@ -45,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                         Snackbar.LENGTH_SHORT
                     ).setAnchorView(binding.tvList).show()
                 }
+            }
+            btnDeleteField.setOnClickListener {
+                tvList.text = deleteLastField(tvList.text.toString())
             }
         }
     }
@@ -61,5 +65,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearField(tiet: TextInputEditText) {
         tiet.setText("")
+    }
+    private fun deleteLastField(input: String): String{
+        return if(input.lastIndexOf("\n")>0) {
+            input.substring(0, input.lastIndexOf("\n\n"))
+        } else {
+            ""
+        }
     }
 }
