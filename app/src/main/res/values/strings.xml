@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Not RecyclerView</string>
+    <string name="enter_field_name">Enter Field Name</string>
+    <string name="field_is_numeric">Field is Numeric</string>
+    <string name="add_field">ADD FIELD</string>
+</resources>
